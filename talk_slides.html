@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Using Data from my Backyard Garden to Teach Introductory Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lisa Lendway, PhD" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable/js/pagedtable.js"></script>
+    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections/anchor-sections.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Using Data from my Backyard Garden to Teach Introductory Data Science
+### Lisa Lendway, PhD
+### Macalester College
+
+---
+
+
+
+background-image: url(images/IMG_0952.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Jungle Garden
+
+&lt;style type="text/css"&gt;
+.title-slide {
+  background-image: url(images/top_view.jpg);
+  background-size: cover;
+}
+.title-slide .remark-slide-number {
+  display: none;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+???
+
+
+Welcome to my garden. Before I talk about how I use data from it in my intro course, I want to tell you a little bit about how my garden came to be. 
+
+I started gardening in the summer of 2004, the first year I had a house with a backyard. I don't have a picture from back then, but here's one from 2013. Perhaps it gives you a sense of why I fondly refer to it as the jungle garden?
+
+
+---
+
+background-image: url(images/IMG_8551.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Starting over
+
+???
+
+In 2017, my family and I moved. So, in 2018, I needed to start fresh.
+
+---
+
+background-image: url(images/IMG_8619.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+We made boxes for raised beds and built a fence to keep all the rabbits out!
+
+---
+
+background-image: url(images/IMG_8879.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I laid A LOT of bricks for paths.
+
+---
+
+background-image: url(images/IMG_0446.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+By May of 2019, things were really shaping up (and my forearms were quite sore from lifting all those bricks!). 
+
+---
+
+background-image: url(images/IMG_2800.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+This photo is from June 2020, with the garden just starting to bloom. 
+---
+
+background-image: url(images/IMG_2985.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I love spending time in my garden. 
+
+---
+
+background-image: url(images/IMG_2987.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+And this new one has lived up to the jungle garden name of its predecessor. 
+
+---
+
+background-image: url(images/IMG_3017.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+The pumpkin/squash arch is my favorite feature and is abuzz with bees most of the summer. 
+
+---
+
+background-image: url(images/IMG_3065.jpeg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+It's a fairly productive garden, too!
+
+---
+
+background-image: url(images/IMG_2993.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I preserve and eat as much as I can. And share with others, too.
+
+
+---
+
+
+
+
+&lt;img src="images/cum_harvest.png" width="2400" style="display: block; margin: auto;" /&gt;
+
+
+???
+
+Last year, I harvested nearly 1000 pounds of food from the garden! Which reminds me ... I'm supposed to be talking to you about using the data in my class. Let's get to that.
+
+---
+
+# Garden data
+
+* Why use data from the garden?  
+
+  - I could use it to teach a lot of intro data science topics.  
+  - It's interesting (at least I think it is).  
+  - Personal connection.  
+  - Why not?!  
+  
+
+* How?
+
+  - Google sheet and later an R package called [gardenR](https://github.com/llendway/gardenR): https://github.com/llendway/gardenR
+  - To introduce new functions &amp; for a perfect garden graph assignment
+
+???
+
+Sometime in the spring of 2020, I realized that I could combine my love of my garden with my love of data by collecting data about my garden to use in my intro data science course.
+
+And, why did I think this was a good idea?
+
+I could use the data to introduce almost every topic I intended to teach in my intro data science course at Macalester College. Topics include data visualization - bar charts, histograms, line graphs, scatterplots, boxplots, and more!; data wrangling - creating new variables, summarizing data, joining, rearranging, string manipulation, etc.; adding animation and interactivity to graphs, including creating shiny apps; importing data; and creating nice tables. The two places where I didn't use my garden data were creating maps and scraping data. 
+
+I know I'm biased, but I thought it was fairly interesting.
+
+Something I didn't realize initially was the personal connection it would bring. Students could ask questions about data collection that they couldn't usually ask about data we use in the class since I had collected and curated it.
+
+So, why not give it a try?!
+
+And, how did I use it?
+
+At first, the data were collected in a google sheet (I'll show that in a moment). After I finished collected data for the year, I created an R data package. 
+
+
+---
+
+# The data!
+
+
+```r
+library(gardenR)       # for garden data :)
+head(garden_harvest)
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["vegetable"],"name":[1],"type":["chr"],"align":["left"]},{"label":["variety"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date"],"name":[3],"type":["date"],"align":["right"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["units"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"lettuce","2":"reseed","3":"2020-06-06","4":"20","5":"grams"},{"1":"radish","2":"Garden Party Mix","3":"2020-06-06","4":"36","5":"grams"},{"1":"lettuce","2":"reseed","3":"2020-06-08","4":"15","5":"grams"},{"1":"lettuce","2":"reseed","3":"2020-06-09","4":"10","5":"grams"},{"1":"radish","2":"Garden Party Mix","3":"2020-06-11","4":"67","5":"grams"},{"1":"lettuce","2":"Farmer's Market Blend","3":"2020-06-11","4":"12","5":"grams"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+???
+I'm going to jump over to RStudio in a moment, but wanted to at least introduce the main dataset here. Each row in the data is a “harvest” for a variety of a vegetable. So, vegetables might have multiple rows on a day, especially if they are things I eat twice a day (lettuce) or there are many different varieties of the vegetable (tomatoes). We'll see some examples of this later.
+
+There are 5 columns or variables: vegetable, variety, date of harvest, weight, and units of weight (which turn out to all be in grams, but I wasn't sure that would be the case when I started collecting data).
+
+---
+
+# Demo in RStudio
+
+For more examples of using the data, see my Introduction to Data Science course website: https://ds112-lendway.netlify.app/.
+
+
+???
+
+Go over examples.
+
+
+---
+
+
+# Student graphs
+
+Show examples
+
+???
+Show "live".
+
+---
+
+background-image: url(images/back_view_garden.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+Thank you!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

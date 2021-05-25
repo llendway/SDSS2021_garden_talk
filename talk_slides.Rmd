@@ -1,0 +1,326 @@
+---
+title: "Using Data from my Backyard Garden to Teach Introductory Data Science"
+author: "Lisa Lendway, PhD"
+institute: "Macalester College"
+output:
+  xaringan::moon_reader:
+    df_print: paged
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+background-image: url(images/IMG_0952.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Jungle Garden
+
+```{css, echo = FALSE}
+.title-slide {
+  background-image: url(images/top_view.jpg);
+  background-size: cover;
+}
+.title-slide .remark-slide-number {
+  display: none;
+}
+```
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE)
+```
+
+```{r library-me}
+library(xaringan)
+library(xaringanExtra)
+library(tidyverse)
+library(gardenR)
+library(lubridate)
+```
+
+
+???
+
+
+Welcome to my garden. Before I talk about how I use data from it in my intro course, I want to tell you a little bit about how my garden came to be. 
+
+I started gardening in the summer of 2004, the first year I had a house with a backyard. I don't have a picture from back then, but here's one from 2013. Perhaps it gives you a sense of why I fondly refer to it as the jungle garden?
+
+
+---
+
+background-image: url(images/IMG_8551.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Starting over
+
+???
+
+In 2017, my family and I moved. So, in 2018, I needed to start fresh.
+
+---
+
+background-image: url(images/IMG_8619.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+We made boxes for raised beds and built a fence to keep all the rabbits out!
+
+---
+
+background-image: url(images/IMG_8879.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I laid A LOT of bricks for paths.
+
+---
+
+background-image: url(images/IMG_0446.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+By May of 2019, things were really shaping up (and my forearms were quite sore from lifting all those bricks!). 
+
+---
+
+background-image: url(images/IMG_2800.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+This photo is from June 2020, with the garden just starting to bloom. 
+---
+
+background-image: url(images/IMG_2985.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I love spending time in my garden. 
+
+---
+
+background-image: url(images/IMG_2987.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+And this new one has lived up to the jungle garden name of its predecessor. 
+
+---
+
+background-image: url(images/IMG_3017.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+The pumpkin/squash arch is my favorite feature and is abuzz with bees most of the summer. 
+
+---
+
+background-image: url(images/IMG_3065.jpeg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+It's a fairly productive garden, too!
+
+---
+
+background-image: url(images/IMG_2993.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+I preserve and eat as much as I can.
+
+---
+
+background-image: url(images/IMG_3048.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+And share with others, too. That's zucchini bread, if you're wondering.
+
+---
+
+```{r, eval=FALSE}
+
+cum_harvest <-
+  garden_harvest %>% 
+  group_by(date) %>% 
+  summarize(wt_pounds = sum(weight)*0.00220462) %>% 
+  mutate(cum_wt_pounds = cumsum(wt_pounds)) %>% 
+  ggplot() +
+  geom_line(aes(x = date,
+                y = cum_wt_pounds)) +
+  geom_text(aes(x = ymd("2020-10-10"),
+                y = 1000,
+                label = paste(round(max(cum_wt_pounds),0),
+                              "pounds!"))) +
+  labs(x = NULL,
+       y = NULL,
+       title = "By the end of the harvest season 2020, I harvested \nnearly 1000 pounds of veggies from my garden!") +
+  theme_minimal() +
+  theme(plot.title.position = "plot", 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+ggsave("images/cum_harvest.png",
+       cum_harvest, 
+       width = 6,
+       height = 4)
+```
+
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/cum_harvest.png")
+```
+
+
+???
+
+Last year, I harvested nearly 1000 pounds of food from the garden! Which reminds me ... I'm supposed to be talking to you about using the data in my class. Let's get to that.
+
+---
+
+# Garden data
+
+* Why use data from the garden?  
+
+  - I could use it to teach a lot of intro data science topics.  
+  - It's interesting (at least I think it is).  
+  - Personal connection.  
+  - Why not?!  
+  
+
+* How?
+
+  - Google sheet and later an R package called [gardenR](https://github.com/llendway/gardenR): https://github.com/llendway/gardenR
+  - To introduce new functions & for a perfect garden graph assignment
+
+???
+
+Sometime in the spring of 2020, I realized that I could combine my love of my garden with my love of data by collecting data about my garden to use in my intro data science course.
+
+And, why did I think this was a good idea?
+
+I could use the data to introduce almost every topic I intended to teach in my intro data science course at Macalester College. Topics include data visualization - bar charts, histograms, line graphs, scatterplots, boxplots, and more!; data wrangling - creating new variables, summarizing data, joining, rearranging, string manipulation, etc.; adding animation and interactivity to graphs, including creating shiny apps; importing data; and creating nice tables. The two places where I didn't use my garden data were creating maps and scraping data. 
+
+I know I'm biased, but I thought it was fairly interesting.
+
+Something I didn't realize initially was the personal connection it would bring. Students could ask questions about data collection that they couldn't usually ask about data we use in the class since I had collected and curated it.
+
+So, why not give it a try?!
+
+And, how did I use it?
+
+To answer that literally, as in how did students access the data, at first, the data were collected in a google sheet (I'll show that in a moment). After I finished collecting data for the year, I created an R data package. 
+
+And, how as in what ways did we use the data? I already mentioned how I used it to introduce new topics. Later I'll talk to you about the "Perfect Garden Graph" assignment.
+
+
+---
+
+# The data!
+
+```{r load-garden, echo=TRUE}
+library(gardenR)       # for garden data :)
+head(garden_harvest)
+```
+
+???
+I'm going to jump over to RStudio in a moment, but wanted to at least introduce the main dataset here. Each row in the data is a “harvest” for a variety of a vegetable. So, vegetables might have multiple rows on a day, especially if they are things I eat twice a day (lettuce) or there are many different varieties of the vegetable (tomatoes). We'll see some examples of this later.
+
+There are 5 columns or variables: vegetable, variety, date of harvest, weight, and units of weight (which turn out to all be in grams, but I wasn't sure that would be the case when I started collecting data).
+
+---
+
+# Demo in RStudio
+
+For more examples of using the data, see my Introduction to Data Science course website: https://ds112-lendway.netlify.app/.
+
+
+???
+
+Go over examples.
+
+
+---
+
+
+# Student graphs
+
+Show examples
+
+???
+Show "live".
+
+---
+
+background-image: url(images/back_view_garden.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+Thank you! 
+

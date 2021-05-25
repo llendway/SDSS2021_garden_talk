@@ -1,0 +1,26 @@
+---
+title: "SDSS garden data demo"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+These are the libraries you'll need:
+
+```{r libraries}
+library(tidyverse)         # for graphing and data cleaning
+library(lubridate)         # for working with dates
+# library(remotes)        # for installing package from GitHub
+# remotes::install_github("llendway/gardenR") # run if package is not already installed
+library(gardenR)           # for Lisa's garden data
+```
+
+
+# Data Visualization
+
+The first place students meet the data is in data visualization.
+
+
+
