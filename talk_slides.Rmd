@@ -413,6 +413,19 @@ knitr::include_graphics("pgg_examples/katie_gif.gif")
 
 ---
 
+class: left, top
+
+# Will Orser
+
+
+```{r, out.width="50%"}
+knitr::include_graphics("pgg_examples/will1.png")
+
+knitr::include_graphics("pgg_examples/WillOrser_PerfectGardenGraph.gif")
+```
+
+
+
 ???
 
 ---
