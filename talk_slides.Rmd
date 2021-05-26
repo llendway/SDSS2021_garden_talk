@@ -387,6 +387,28 @@ class: left, top, inverse
 
 ---
 
+class: right, top
+
+# Katie Herrick
+
+```{r, eval=FALSE}
+library(magick)
+
+katie <- list.files(path = "pgg_examples", 
+                    pattern = "katie", 
+                    full.names = TRUE) 
+img_list <- lapply(katie, image_read)
+img_joined <- image_join(img_list)
+katie_gif <- image_animate(img_joined, fps = 1)
+image_write(image = katie_gif,
+            path = "pgg_examples/katie_gif.gif")
+```
+
+```{r}
+knitr::include_graphics("pgg_examples/katie_gif.gif")
+```
+
+
 ???
 
 ---
