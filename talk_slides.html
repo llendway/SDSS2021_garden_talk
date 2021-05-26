@@ -181,8 +181,20 @@ class: left, top, inverse
 
 ???
 
-I preserve and eat as much as I can. And share with others, too.
+I preserve and eat as much as I can.
 
+---
+
+background-image: url(images/IMG_3048.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+
+
+???
+
+And share with others, too. That's zucchini bread, if you're wondering.
 
 ---
 
@@ -229,7 +241,9 @@ So, why not give it a try?!
 
 And, how did I use it?
 
-At first, the data were collected in a google sheet (I'll show that in a moment). After I finished collected data for the year, I created an R data package. 
+To answer that literally, as in how did students access the data, at first, the data were collected in a google sheet (I'll show that in a moment). After I finished collecting data for the year, I created an R data package. 
+
+And, how as in what ways did we use the data? I already mentioned how I used it to introduce new topics. Later I'll talk to you about the "Perfect Garden Graph" assignment.
 
 
 ---
@@ -268,13 +282,106 @@ Go over examples.
 ---
 
 
-# Student graphs
+# Perfect garden graphs
 
-Show examples
+Each week, you will submit a graph using my garden data. For this graph, you should ask a question of the data and then create a graph to answer that question. You will get feedback from me each week and will build on your previous graph. So, you don’t create a completely NEW graph each week, but rather continue to improve on the SAME graph over the entire course. This assignment will focus on the details of the graph that we don’t usually have time for in weekly assignments. It will also be about writing nice code and annotating it. 
 
 ???
-Show "live".
+This is the description of the perfect garden graph assignment. I'll read it to you. Then, we'll take a look at some examples from my students who gave me permission to share their work.
 
+
+---
+
+
+background-image: url(pgg_examples/chloe1.png)
+background-size: contain
+background-position: 50% 50%
+class: right, top, inverse
+
+# Chloé Nance
+
+
+???
+
+Chloé wanted to know the average harvest size of the different vegetables. In this first week my feedback was, "One idea would be to make the actual points smaller and lighter colored (using size and alpha outside of the aes() but inside the geom_point()), and then put the average harvest size on top of that maybe even using a different shape and color." 
+
+
+---
+
+background-image: url(pgg_examples/chloe2.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+The next week, Chloé only plotted the averages but had some other ideas. My feedback was, "For this week, just stick with the point plot of average. Order the vegetables from largest to smallest average and make the points a different color but all the points should be the same color. Capitalize the first letter of the vegetable name using a str_XXX function."
+
+---
+
+background-image: url(pgg_examples/chloe3.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+My feedback this week: "Yes! I’m liking how this is looking. Now put the weight in pounds or kilograms since they are pretty large numbers. Eliminate the horizontal grid lines using arguments in the theme() function. Instead of plotting the raw data with it, try coloring or sizing the points by the number of harvests of each vegetable - you can compute that in the summarize() you already have using the n() function."
+
+---
+
+background-image: url(pgg_examples/chloe4.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+???
+
+My feedback this week: "Great! If you want to just change the size of the point, use size in geom_point() and keep it outside of the aes(). I think harvest size is so big for tomatoes mainly due to having so many varieties. So, instead of using n() which finds the number of harvests but includes each variety separately, let’s find the number of days that each vegetable was harvested. Do that by replacing n() with n_distinct(date) and call that variable n_days or something like that. In the labs, give that variable a nice name."
+
+---
+
+background-image: url(pgg_examples/chloe5.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+Here the graph is looking really great. My only feedback was, "Nice. Change the title of Harvest quantity to Days harvested and either leave out the size=1 or move it outside the aes()."
+
+---
+
+background-image: url(pgg_examples/chloe_nance_perfect_garden.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+---
+
+???
+
+---
+
+???
+
+---
+
+# Perfect Garden Graph recap
+
+* Small amounts of feedback at a time.  
+* Students can work on details that they don't always have time for in other assignments.  
+* They have fun! 
+
+???
+
+I can give students small amounts of feedback at a time. Usually I try to focus on one big thing or 1-3 small things for them to work on each week. They get an opportunity to work on details that they don't always have time for in other assignments, like how the title should be aligned and which gridlines should be kept, if any. They have fun - I received a lot of positive feedback on my end of course surveys about this assignment. Students liked it and found it helpful. 
 ---
 
 background-image: url(images/back_view_garden.jpg)
@@ -282,7 +389,7 @@ background-size: cover
 background-position: 50% 50%
 class: left, top, inverse
 
-
+# Thank you!
 
 ???
 

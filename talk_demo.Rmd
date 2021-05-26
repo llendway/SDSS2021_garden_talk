@@ -20,7 +20,229 @@ library(gardenR)           # for Lisa's garden data
 
 # Data Visualization
 
-The first place students meet the data is in data visualization.
+The first place students meet the data is in data visualization. At first, I provide some of the data manipulation code. I will go through some of the examples I use in my class.
+
+### Histogram
+
+Histogram showing distribution of tomato harvests, in grams.
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("tomatoes")) %>% 
+# I would provide the code for everything prior to the plot.
+  ggplot(aes(x = weight)) +
+  geom_histogram()
+```
+
+They learn to do some customizing of their plots.
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("tomatoes")) %>% 
+# I would provide the code for everything prior to the plot.
+  ggplot(aes(x = weight)) +
+  geom_histogram(fill = "tomato") +
+  geom_vline(aes(xintercept = mean(weight))) +
+  labs(x = "Weight (grams)",
+       y = NULL,
+       title = "The average tomato harvest is just over 500 grams") +
+  theme_minimal()
+```
+
+
+### Bar graph
+
+Bar graph showing how many harvests of each vegetable. We'll improve this graph further later.
+
+```{r}
+garden_harvest %>% 
+  ggplot(aes(y = vegetable)) +
+  geom_bar() +
+  scale_x_continuous(expand = c(0,0)) +
+  labs(title = "The number of harvests of each vegetable",
+       x = NULL,
+       y = NULL)
+```
+
+
+### Line graph
+
+Line graph showing the daily tomato harvest in pounds on dates when tomatoes were harvested.
+
+```{r}
+# I provide this code:
+tomatoes_wt_date <- garden_harvest %>% 
+  filter(vegetable == "tomatoes") %>% 
+  group_by(date) %>% 
+  summarize(daily_wt_lb = sum(weight)*0.00220462)
+
+# Students create this graph:
+tomatoes_wt_date %>% 
+  ggplot(aes(x = date, y = daily_wt_lb)) +
+  geom_line() +
+  labs(title = "Daily tomato harvest (lb)",
+       x = NULL,
+       y = NULL)
+```
+
+
+### Boxplot
+
+Comparing the distributions of harvest weights in grams for a subset of vegetables. We'll improve this plot later, too.
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("lettuce", "tomatoes", "beans")) %>% 
+  ggplot(aes(x = weight,
+             y = vegetable)) +
+  geom_boxplot() +
+  labs(title = "Tomato harvests are much larger than lettuce harvests",
+       x = "Weight (g)",
+       y = NULL) +
+  theme(plot.title.position = "plot")
+```
+
+## Data manipulation
+
+Next, we move on to data manipulation. By this time, students have already seen some examples of this in code I wrote for them.
+
+### Filtering
+
+Filtering the vegetable types to lettuce, tomatoes, and beans.
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("lettuce", "tomatoes", "beans"))
+```
+
+And we can filter using multiple criteria. Filter the vegetables to tomatoes and cucumbers for dates after 08-10-2020
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("tomatoes", "cucumber"),
+         date >= ymd("2020-08-10"))
+```
+
+### Adding new variables
+
+Create a variable called `wt_lbs` that translates the weight in grams to weight in pounds. And, use the variable we just created to create another new variable called `over_1_lb` that is a logical variable describing whether the harvest is over 1 pound.
+
+```{r}
+garden_harvest %>% 
+  mutate(wt_lbs = weight * 0.00220462,
+         over_1_lb = wt_lbs > 1)
+```
+
+### Summarizing data for each category
+
+For tomatoes, find the total weight in pounds harvested on each date they were harvested.
+
+```{r}
+tomatoes_wt_date <- garden_harvest %>% 
+  filter(vegetable == "tomatoes") %>% 
+  group_by(date) %>% 
+  summarize(daily_wt_lb = sum(weight)*0.00220462)
+
+tomatoes_wt_date
+```
+
+## More advanced data manipulation
+
+Students continue to expand their data wrangling/preparing skills.
+
+### String manipulation
+
+They learn to work with strings. Going back to the bar graph showing how many harvests of each vegetable. We'll make the vegetables start with capital letters.
+
+```{r}
+garden_harvest %>% 
+  mutate(vegetable = str_to_title(vegetable)) %>% 
+  ggplot(aes(y = vegetable)) +
+  geom_bar() +
+  scale_x_continuous(expand = c(0,0)) +
+  labs(title = "The number of harvests of each vegetable",
+       x = NULL,
+       y = NULL)
+```
+
+### Reordering categorical data
+
+They learn to reorder levels within the variable to make the plots more informative. 
+
+```{r}
+garden_harvest %>% 
+  mutate(vegetable = str_to_title(vegetable)) %>% 
+  ggplot(aes(y = fct_rev(fct_infreq(vegetable)))) +
+  geom_bar() +
+  scale_x_continuous(expand = c(0,0)) +
+  labs(title = "The number of harvests of each vegetable",
+       x = NULL,
+       y = NULL)
+```
+
+### Joining datasets
+
+I introduce another dataset from my garden, `garden_planting`. This dataset describes when and where I planted each vegetable variety. 
+
+```{r}
+data("garden_planting")
+```
+
+I would like to investigate the question: how many days from the date the variety of vegetable was planted did I get my first harvest?
+
+I am going to summarize the `garden_planting` dataset first. For each vegetable and variety, I will find the minimum date. I will save that as a new dataset called `plant_min_date`.
+
+```{r}
+plant_min_date <- garden_planting %>% 
+  group_by(vegetable, variety) %>% 
+  summarize(first_plant_date = min(date))
+
+plant_min_date
+```
+
+Now let's join this dataset to the `garden_harvest` data. (You might notice missing values at the end for varieties that didn't have a match in the garden_planting dataset).
+
+```{r}
+garden_harvest %>% 
+  left_join(plant_min_date,
+            by = c("vegetable", "variety")) %>% 
+  mutate(date_diff = date - first_plant_date) %>% 
+  group_by(vegetable, variety) %>% 
+  summarize(days_to_first_harvest = min(date_diff)) %>% 
+  arrange(days_to_first_harvest)
+```
+
+### Pivoting/transposing datasets
+
+Here I have summarized the data for a tomatoes, peas, beans, and lettuce to find the total weight harvested on each day of the week. This table is pretty long to look through. 
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("tomatoes", "peas", "beans", "lettuce")) %>% 
+  mutate(day = wday(date, label = TRUE)) %>% 
+  group_by(vegetable, day) %>% 
+  summarize(total_weight = sum(weight))
+```
+
+For looking at the results, I would rather have a column for each vegetable. Keep in mind, this is just for *viewing* the results. I'm assuming I won't be doing further analysis. If I want to keep playing with the data, it's better to leave it in its current form.
+
+```{r}
+garden_harvest %>% 
+  filter(vegetable %in% c("tomatoes", "peas", "beans", "lettuce")) %>% 
+  mutate(day = wday(date, label = TRUE)) %>% 
+  group_by(vegetable, day) %>% 
+  summarize(total_weight = sum(weight)) %>% 
+  pivot_wider(names_from = vegetable,
+              values_from = total_weight)
+
+```
+
+## And more!!
+
+Students also use these datasets when learning how to make animated plots with `gganimate` and creating interactive shiny apps.
+
+
+
 
 
 
