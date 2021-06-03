@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Using Data from my Backyard Garden to Teach Introductory Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lisa Lendway, PhD" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/pagedtable/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable/js/pagedtable.js"></script>
+    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections/anchor-sections.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Using Data from my Backyard Garden to Teach Introductory Data Science
+### Lisa Lendway, PhD
+### Macalester College
+
+---
+
+
+background-image: url(images/IMG_2987.jpg)
+background-size: cover
+background-position: 50% 50%
+color: #FDFEFE
+class: left, top, inverse
+
+# https://youtu.be/haIdLmhZTN8
+
+&lt;style type="text/css"&gt;
+.title-slide {
+  background-image: url(images/top_view.jpg);
+  background-size: cover;
+}
+.title-slide .remark-slide-number {
+  display: none;
+}
+&lt;/style&gt;
+
+
+
+
+
+
+
+???
+
+
+Today I will talk (quickly!) about using data from my garden in my introductory data science course. For more fun photos of the garden and detailed descriptions of how I use the data, see the video of my longer talk at the [link](https://youtu.be/haIdLmhZTN8) shown.
+
+
+
+---
+
+background-image: url(images/IMG_3065.jpeg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# https://youtu.be/haIdLmhZTN8
+
+
+???
+
+These are tomatoes from my garden, which turns out to be quite productive.
+
+---
+
+# https://youtu.be/haIdLmhZTN8
+
+
+
+
+&lt;img src="images/cum_harvest.png" width="2400" style="display: block; margin: auto;" /&gt;
+
+
+???
+
+Last year, I harvested nearly 1000 pounds of food from the garden! So, let's talk about why and how I use the data in my class.
+
+---
+
+# Garden data
+
+* Why use data from the garden?  
+
+  - I could use it to teach a lot of intro data science topics.  
+  - It's interesting (at least I think it is).  
+  - Personal connection.  
+  - Why not?!  
+  
+
+* How?
+
+  - Google sheet and later an R package called [gardenR](https://github.com/llendway/gardenR): https://github.com/llendway/gardenR
+  - To introduce new functions &amp; for a perfect garden graph assignment
+
+???
+
+Why did I decide to use my data?
+
+First, I could use the data to introduce almost every topic I intended to teach, including data visualization; data wrangling; adding animation and interactivity to graphs; importing data; and creating nice tables. 
+
+The data were interesting and complex enough to ask and answer interesting questions.
+
+It provided a personal connection since I had collected and curated it.
+
+
+
+And, how did I use it?
+
+In terms of getting the data, students accessed it at first, via a google sheet. After I finished collecting data for the year, I created an R data package. 
+
+I won't have time to show you how I used it to introduce different topics, but I want to show you how the students use it in assignment I call the "Perfect Garden Graph assignment"
+
+---
+
+# The data!
+
+
+```r
+library(gardenR)       # for garden data :)
+head(garden_harvest)
+```
+
+&lt;div data-pagedtable="false"&gt;
+  &lt;script data-pagedtable-source type="application/json"&gt;
+{"columns":[{"label":["vegetable"],"name":[1],"type":["chr"],"align":["left"]},{"label":["variety"],"name":[2],"type":["chr"],"align":["left"]},{"label":["date"],"name":[3],"type":["date"],"align":["right"]},{"label":["weight"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["units"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"lettuce","2":"reseed","3":"2020-06-06","4":"20","5":"grams"},{"1":"radish","2":"Garden Party Mix","3":"2020-06-06","4":"36","5":"grams"},{"1":"lettuce","2":"reseed","3":"2020-06-08","4":"15","5":"grams"},{"1":"lettuce","2":"reseed","3":"2020-06-09","4":"10","5":"grams"},{"1":"radish","2":"Garden Party Mix","3":"2020-06-11","4":"67","5":"grams"},{"1":"lettuce","2":"Farmer's Market Blend","3":"2020-06-11","4":"12","5":"grams"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  &lt;/script&gt;
+&lt;/div&gt;
+
+???
+First, here's the main dataset. Each row in the data is a “harvest” for a variety of a vegetable. So, vegetables might have multiple rows on a day, especially if they are things I eat twice a day (lettuce) or there are many different varieties of the vegetable (tomatoes). 
+
+There are 5 columns or variables.
+
+---
+
+# Perfect garden graphs
+
+Each week, you will submit a graph using my garden data. For this graph, you should ask a question of the data and then create a graph to answer that question. You will get feedback from me each week and will build on your previous graph. So, you don’t create a completely NEW graph each week, but rather continue to improve on the SAME graph over the entire course. This assignment will focus on the details of the graph that we don’t usually have time for in weekly assignments. It will also be about writing nice code and annotating it. 
+
+???
+This is the description of the perfect garden graph assignment. You can read that on your own later. The essence is that students work on the same graph over the course of 5-6 weeks and continually improve on it using my feedback and new skills they learn.
+
+---
+
+
+background-image: url(pgg_examples/chloe1.png)
+background-size: contain
+background-position: 50% 50%
+class: right, top, inverse
+
+# Chloé Nance
+
+
+???
+
+I will show one example from Chloé, who gave me her permission to share her graphs. She wanted to know the average harvest size of the different vegetables. In this first week I encouraged Chloe to plot the raw data with the average on top of it, in a different color.
+
+
+---
+
+background-image: url(pgg_examples/chloe2.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+The next week, Chloé only plotted the averages but had some other ideas. My feedback was to order the vegetables from largest to smallest average and capitalize the first letter of the vegetable name.
+
+---
+
+background-image: url(pgg_examples/chloe3.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+My feedback this week was that her graph was beginning to take form. Put the weight in pounds or kilograms, eliminate the horizontal grid line, and to color or size the points by the number of harvests of each vegetable.
+
+---
+
+background-image: url(pgg_examples/chloe4.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+???
+
+My feedback this week: Great! Instead of using finding number of harvests find the number of days that each vegetable was harvested, otherwise the tomatoes stand out too much. Give that a nice name in the legend.
+
+---
+
+background-image: url(pgg_examples/chloe5.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+At this point my only feedback was to change the title of Harvest quantity to Days harvested.
+
+---
+
+background-image: url(pgg_examples/chloe_nance_perfect_garden.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+Chloé made the change I suggested a few more and came out with a really nice looking graph. I hope this gives you an idea of the detailed work the students can do working with my garden data over many weeks.
+---
+
+background-image: url(images/back_view_garden.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Thank you!
+
+???
+
+Thank you!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

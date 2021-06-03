@@ -1,0 +1,257 @@
+---
+title: "Using Data from my Backyard Garden to Teach Introductory Data Science"
+author: "Lisa Lendway, PhD"
+institute: "Macalester College"
+output:
+  xaringan::moon_reader:
+    df_print: paged
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+background-image: url(images/IMG_2987.jpg)
+background-size: cover
+background-position: 50% 50%
+color: #FDFEFE
+class: left, top, inverse
+
+# https://youtu.be/haIdLmhZTN8
+
+```{css, echo = FALSE}
+.title-slide {
+  background-image: url(images/top_view.jpg);
+  background-size: cover;
+}
+.title-slide .remark-slide-number {
+  display: none;
+}
+```
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE)
+```
+
+```{r library-me}
+library(xaringan)
+library(xaringanExtra)
+library(tidyverse)
+library(gardenR)
+library(lubridate)
+```
+
+
+???
+
+
+Today I will talk (quickly!) about using data from my garden in my introductory data science course. For more fun photos of the garden and detailed descriptions of how I use the data, see the video of my longer talk at the [link](https://youtu.be/haIdLmhZTN8) shown.
+
+
+
+---
+
+background-image: url(images/IMG_3065.jpeg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# https://youtu.be/haIdLmhZTN8
+
+
+???
+
+These are tomatoes from my garden, which turns out to be quite productive.
+
+---
+
+# https://youtu.be/haIdLmhZTN8
+
+```{r, eval=FALSE}
+
+cum_harvest <-
+  garden_harvest %>% 
+  group_by(date) %>% 
+  summarize(wt_pounds = sum(weight)*0.00220462) %>% 
+  mutate(cum_wt_pounds = cumsum(wt_pounds)) %>% 
+  ggplot() +
+  geom_line(aes(x = date,
+                y = cum_wt_pounds)) +
+  geom_text(aes(x = ymd("2020-10-10"),
+                y = 1000,
+                label = paste(round(max(cum_wt_pounds),0),
+                              "pounds!"))) +
+  labs(x = NULL,
+       y = NULL,
+       title = "By the end of the harvest season 2020, I harvested \nnearly 1000 pounds of veggies from my garden!") +
+  theme_minimal() +
+  theme(plot.title.position = "plot", 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+ggsave("images/cum_harvest.png",
+       cum_harvest, 
+       width = 6,
+       height = 4)
+```
+
+
+```{r, fig.align='center'}
+knitr::include_graphics("images/cum_harvest.png")
+```
+
+
+???
+
+Last year, I harvested nearly 1000 pounds of food from the garden! So, let's talk about why and how I use the data in my class.
+
+---
+
+# Garden data
+
+* Why use data from the garden?  
+
+  - I could use it to teach a lot of intro data science topics.  
+  - It's interesting (at least I think it is).  
+  - Personal connection.  
+  - Why not?!  
+  
+
+* How?
+
+  - Google sheet and later an R package called [gardenR](https://github.com/llendway/gardenR): https://github.com/llendway/gardenR
+  - To introduce new functions & for a perfect garden graph assignment
+
+???
+
+Why did I decide to use my data?
+
+First, I could use the data to introduce almost every topic I intended to teach, including data visualization; data wrangling; adding animation and interactivity to graphs; importing data; and creating nice tables. 
+
+The data were interesting and complex enough to ask and answer interesting questions.
+
+It provided a personal connection since I had collected and curated it.
+
+
+
+And, how did I use it?
+
+In terms of getting the data, students accessed it at first, via a google sheet. After I finished collecting data for the year, I created an R data package. 
+
+I won't have time to show you how I used it to introduce different topics, but I want to show you how the students use it in assignment I call the "Perfect Garden Graph assignment"
+
+---
+
+# The data!
+
+```{r load-garden, echo=TRUE}
+library(gardenR)       # for garden data :)
+head(garden_harvest)
+```
+
+???
+First, here's the main dataset. Each row in the data is a “harvest” for a variety of a vegetable. So, vegetables might have multiple rows on a day, especially if they are things I eat twice a day (lettuce) or there are many different varieties of the vegetable (tomatoes). 
+
+There are 5 columns or variables.
+
+---
+
+# Perfect garden graphs
+
+Each week, you will submit a graph using my garden data. For this graph, you should ask a question of the data and then create a graph to answer that question. You will get feedback from me each week and will build on your previous graph. So, you don’t create a completely NEW graph each week, but rather continue to improve on the SAME graph over the entire course. This assignment will focus on the details of the graph that we don’t usually have time for in weekly assignments. It will also be about writing nice code and annotating it. 
+
+???
+This is the description of the perfect garden graph assignment. You can read that on your own later. The essence is that students work on the same graph over the course of 5-6 weeks and continually improve on it using my feedback and new skills they learn.
+
+---
+
+
+background-image: url(pgg_examples/chloe1.png)
+background-size: contain
+background-position: 50% 50%
+class: right, top, inverse
+
+# Chloé Nance
+
+
+???
+
+I will show one example from Chloé, who gave me her permission to share her graphs. She wanted to know the average harvest size of the different vegetables. In this first week I encouraged Chloe to plot the raw data with the average on top of it, in a different color.
+
+
+---
+
+background-image: url(pgg_examples/chloe2.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+The next week, Chloé only plotted the averages but had some other ideas. My feedback was to order the vegetables from largest to smallest average and capitalize the first letter of the vegetable name.
+
+---
+
+background-image: url(pgg_examples/chloe3.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+My feedback this week was that her graph was beginning to take form. Put the weight in pounds or kilograms, eliminate the horizontal grid line, and to color or size the points by the number of harvests of each vegetable.
+
+---
+
+background-image: url(pgg_examples/chloe4.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+???
+
+My feedback this week: Great! Instead of using finding number of harvests find the number of days that each vegetable was harvested, otherwise the tomatoes stand out too much. Give that a nice name in the legend.
+
+---
+
+background-image: url(pgg_examples/chloe5.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+At this point my only feedback was to change the title of Harvest quantity to Days harvested.
+
+---
+
+background-image: url(pgg_examples/chloe_nance_perfect_garden.png)
+background-size: contain
+background-position: 50% 50%
+class: left, top, inverse
+
+
+???
+
+Chloé made the change I suggested a few more and came out with a really nice looking graph. I hope this gives you an idea of the detailed work the students can do working with my garden data over many weeks.
+---
+
+background-image: url(images/back_view_garden.jpg)
+background-size: cover
+background-position: 50% 50%
+class: left, top, inverse
+
+# Thank you!
+
+???
+
+Thank you! 
+
